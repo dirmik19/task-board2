@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from 'react'
+import { useEffect, useState, type FormEvent } from 'react'
 import './App.css'
 
 interface Task {
@@ -7,9 +7,24 @@ interface Task {
   completed: boolean
 }
 
+const STORAGE_KEY = 'task-board:tasks'
+
+function loadTasks(): Task[] {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY)
+    return raw ? (JSON.parse(raw) as Task[]) : []
+  } catch {
+    return []
+  }
+}
+
 function App() {
-  const [tasks, setTasks] = useState<Task[]>([])
+  const [tasks, setTasks] = useState<Task[]>(loadTasks)
   const [input, setInput] = useState('')
+
+  useEffect(() => {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks))
+  }, [tasks])
 
   const handleAddTask = (e: FormEvent) => {
     e.preventDefault()
