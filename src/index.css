@@ -1,0 +1,10 @@
+:root {
+  color-scheme: light;
+  font-family: system-ui, -apple-system, 'Segoe UI', 'Hiragino Sans', sans-serif;
+}
+
+body {
+  margin: 0;
+  background: #f9fafb;
+  color: #1f2937;
+}
